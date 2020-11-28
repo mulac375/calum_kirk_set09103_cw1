@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+ 
+{% block content %}
+ 
+<!-- contact form if successful statement -->
+  {% if success %}
+    <p>Thank you for your message. We'll get back to you shortly.</p>
+ 
+ {% else %}
+<!-- contact form if unsuccesful statement -->
+  {% for message in form.name.errors %}
+    <div class="flash">{{ message }}</div>
+  {% endfor %}
+ 
+  {% for message in form.email.errors %}
+    <div class="flash">{{ message }}</div>
+  {% endfor %}
+ 
+  {% for message in form.subject.errors %}
+    <div class="flash">{{ message }}</div>
+  {% endfor %}
+ 
+  {% for message in form.message.errors %}
+    <div class="flash">{{ message }}</div>
+  {% endfor %}
+
+<div class="content-section"><!-- contact form -->
+<div class="form-group">
+  <form action="{{ url_for('contact') }}" method=post>
+      <fieldset class="form-group">
+          <legend class="border-bottom mb-4">Send us a Query</legend>
+            <div class="form-group">
+    {{ form.hidden_tag() }}
+          </div>
+            <div class="form-group">
+    {{ form.name.label(class="form-control-label") }}
+    {{ form.name(class="form-control form-control-lg") }}    
+          </div>
+            <div class="form-group">
+    {{ form.email.label(class="form-control-label") }}
+    {{ form.email(class="form-control form-control-lg") }}
+          </div>
+            <div class="form-group">
+    {{ form.subject.label(class="form-control-label") }}
+    {{ form.subject(class="form-control form-control-lg") }}
+          </div>
+            <div class="form-group">
+    {{ form.message.label(class="form-control-label") }}
+    {{ form.message(class="form-control form-control-lg") }}
+          </div>
+      </fieldset>
+
+       <div class="form-group">
+           
+           {{ form.submit(class="btn btn-outline-info") }}</div>
+  </form>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

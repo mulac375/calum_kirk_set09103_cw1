@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}"><!-- Navbar Right Side -->
+<!-- Navbar Right Side -->
+    {% if title %}
+        <title>Docst - {{ title }}</title>
+    {% else %}
+        <title>Docst</title>
+    {% endif %}
+</head>
+<body><!-- body for website -->
+    <header class="site-header">
+      <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top" style="background-color: #306bb2;">
+        <div class="container">   
+            <img src="{{ url_for('static', filename = '/images/docst-logo.png') }}" href="{{ url_for('home') }}" alt="User Image" height="40px" >
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+            
+            <!-- Navbar -->
+          <div class="collapse navbar-collapse" id="navbarToggle">
+            <div class="navbar-nav mr-auto">
+              <a class="nav-item nav-link" href="{{ url_for('home') }}" style="color: #ffffff;">Home</a>
+              <a class="nav-item nav-link" href="{{ url_for('contact') }}" style="color: #ffffff;">Contact</a>
+            </div>
+            <!-- Navbar Right Side -->
+            <div class="navbar-nav">
+              {% if current_user.is_authenticated %}<!-- nav once user is logged in -->
+                <a class="nav-item nav-link" href="{{ url_for('new_post') }} " style="color: #ffffff;">New Post</a>
+                <a class="nav-item nav-link" href="{{ url_for('upload') }}" style="color: #ffffff;">Upload</a>
+                <a class="nav-item nav-link" href="{{ url_for('account') }}" style="color: #ffffff;">Account</a>
+                <a class="nav-item nav-link" href="{{ url_for('logout') }}" style="color: #ffffff;">Logout</a>
+              {% else %}
+                <a class="nav-item nav-link" href="{{ url_for('login') }}" style="color: #ffffff;">Login</a>
+                <a class="nav-item nav-link" href="{{ url_for('register') }}" style="color: #ffffff;">Register</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main role="main" class="container"> <!-- right information container Right Side appears on all pages -->
+      <div class="row">
+        <div class="col-md-8">
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                  {{ message }}
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+          {% block content %}{% endblock %}
+        </div>
+        <div class="col-md-4">
+          <div class="content-section">
+            <h3>About Docst</h3>
+              <br>
+            <p class='text-muted'>Docst is a sharing platform where users can post ideas and upload files with each other.<br> <br>The website features a fully functional register and login system backed up by a secure database.<br>
+                <br>
+                Users can make an account, create posts or upload files. You can also contact us if you have any queries about the application in our contact form. 
+                <br>
+           
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+    
+    <!-- Footer -->
+<footer class="page-footer font-small blue pt-4" style="background-color: #306bb2;">
+  <div class="container-fluid text-center text-md-left">
+ <div class="row">
+
+      <div class="col-md-4 mb-md-0 mb-4 d-flex justify-content-center">
+        <p class="footer-text" style="color: #ffffff;">You can contact Docst using our personalised contact form.</p>
+          </div>
+     
+     <div class="col-md-4 mb-md-0 mb-4 d-flex justify-content-center">
+       <p class="footer-text" style="color: #ffffff;"> Copyright 2020 </p>
+        </div>
+     
+      <div class="col-md-4 mb-md-0 mb-4 d-flex justify-content-center">
+        <ul class="list-unstyled">
+       <img src="{{ url_for('static', filename = '/images/docst-logo.png') }}" href="{{ url_for('home') }}" alt="User Image" height="40px" >
+        </ul>
+        </div>
+    </div>
+    </div>
+</footer>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
